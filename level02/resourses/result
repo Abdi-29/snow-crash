@@ -1,2 +1,0 @@
-ssh -p 4242 level02@localhost "cat /home/user/level02/level02.pcap" > level02.pcap
-
