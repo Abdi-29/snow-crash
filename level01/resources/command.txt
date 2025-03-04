@@ -1,4 +1,0 @@
-ohn --show hash.txt 
-?:abcdefg
-
-1 password hash cracked, 0 left
