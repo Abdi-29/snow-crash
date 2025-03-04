@@ -1,0 +1,19 @@
+services:
+  kali:
+    build:
+      context: .
+    container_name: kalilinux
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    volumes:
+      - kali-data:/data
+
+volumes:
+  kali-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none 
+      device: ${HOME}/snow-crash/
+
