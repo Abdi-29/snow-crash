@@ -9,6 +9,7 @@ RUN apt-get update && \
     python3 \
     python3-pip \
     curl \
+    john \
     wget && apt-get clean 
 
 WORKDIR /snow-crash

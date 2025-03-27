@@ -1,4 +1,9 @@
-ohn --show hash.txt 
+level01@SnowCrash:~$ cat /etc/passwd
+
+flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash
+
+
+john --show hash.txt 
 ?:abcdefg
 
 1 password hash cracked, 0 left

